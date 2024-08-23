@@ -2,11 +2,15 @@
 from .models import Author, Library, Librarian, Book
 
 
-author = Author.objects.get(name="John Doe")
-books_by_author = Book.objects.filter(author=author)
+author_name = Author.objects.get(name="John Doe")
+books_by_author = Book.objects.filter(author=author_name)
 
-all_books = Library.objects.all()
+library_name = Library.objects.get(name="Some Library Name")
+books_in_library = library_name.books.all()
+
 all_librarian = Librarian.objects.all()
+
+
 for librarian in all_librarian:
     print (librarian.name)
 
