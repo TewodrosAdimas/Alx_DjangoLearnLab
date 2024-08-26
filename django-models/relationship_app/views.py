@@ -1,6 +1,7 @@
 from typing import Any
 from django.shortcuts import render
-from .models import Librarian, Library, Book, Author
+from .models import Librarian, Book, Author
+from .models import Library
 from django.views.generic import ListView, DetailView
 # Create your views here.
 
@@ -14,6 +15,7 @@ class ListAllBooks(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         library_name = "Central Library"
-        library = Library.objects.get(name=library_name)
-        context['books'] = library.books.all()       
+        context['library'] = Library.objects.get(name=library_name)
+        # library = Library.objects.get(name=library_name)
+        # context['books'] = library.books.all()       
         return context
