@@ -4,4 +4,4 @@ from .models import Librarian, Library, Book, Author
 
 def BookList(request):
     all_books = Book.objects.all()
-    return render(request, "relationship_app/books.html", all_books)
+    return render(request, "list_books.html", all_books)
