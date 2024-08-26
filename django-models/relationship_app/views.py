@@ -9,7 +9,7 @@ def BookList(request):
     all_books = Book.objects.all()
     return render(request, "relationship_app/list_books.html", all_books)
 class ListAllBooks(ListView):
-    template_name = 'books/book_list.html'
+    template_name = 'library_detail.html'
     context_object_name = 'books'  # Name to use in the template
 
     def get_context_data(self, **kwargs):
