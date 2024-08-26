@@ -1,9 +1,8 @@
-from django.urls import path, include
-from django.views.generic import TemplateView
-from .views import SignUpView 
+from django.urls import path
+from .views import CustomLoginView, CustomLogoutView, RegisterView
 
-path('accounts/', include('django.contrib.auth.urls')),path('accounts/profile/', 
-         TemplateView.as_view(template_name='accounts/profile.html'), 
-         name='profile'),path("signup/", 
-         SignUpView.as_view(), 
-         name="signup"),
+urlpatterns = [
+    path('login/', CustomLoginView.as_view(), name='login'),
+    path('logout/', CustomLogoutView.as_view(), name='logout'),
+    path('register/', RegisterView.as_view(), name='register'),
+]
