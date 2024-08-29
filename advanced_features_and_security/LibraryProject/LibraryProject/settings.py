@@ -136,7 +136,6 @@ SECURE_HSTS_SECONDS = 31536000  # 1 year in seconds
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 SECURE_BROWSER_XSS_FILTER = True
-# settings.py
 
 # Enable the browser's XSS filter
 SECURE_BROWSER_XSS_FILTER = True
@@ -150,3 +149,53 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 # Ensure cookies are only sent over HTTPS
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
+
+
+# Redirect all HTTP requests to HTTPS
+SECURE_SSL_REDIRECT = True
+
+# Enable HTTP Strict Transport Security (HSTS) for 1 year (in seconds)
+SECURE_HSTS_SECONDS = 31536000  # 1 year
+
+# Include all subdomains in the HSTS policy
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
+# Allow preloading of the HSTS policy
+SECURE_HSTS_PRELOAD = True
+
+# Ensure cookies are only sent over HTTPS
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+# Optionally, set the same-site attribute for cookies
+CSRF_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SAMESITE = 'Lax'
+
+# Enable the browser’s XSS filter
+SECURE_BROWSER_XSS_FILTER = True
+
+# Prevent clickjacking
+X_FRAME_OPTIONS = 'DENY'
+
+# Prevent browsers from MIME-sniffing
+SECURE_CONTENT_TYPE_NOSNIFF = True
+# settings.py
+
+# Ensure that session cookies are only sent over HTTPS
+SESSION_COOKIE_SECURE = True
+
+# Ensure that CSRF cookies are only sent over HTTPS
+CSRF_COOKIE_SECURE = True
+
+# Optionally, set the same-site attribute for cookies to enhance security
+CSRF_COOKIE_SAMESITE = 'Lax'  # Use 'Strict' if you want more restrictive protection
+SESSION_COOKIE_SAMESITE = 'Lax'  # Use 'Strict' if you want more restrictive protection
+
+# Prevent the site from being framed and protect against clickjacking
+X_FRAME_OPTIONS = 'DENY'
+
+# Prevent browsers from MIME-sniffing a response away from the declared content-type
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Enable the browser’s XSS filtering to help prevent cross-site scripting attacks
+SECURE_BROWSER_XSS_FILTER = True
