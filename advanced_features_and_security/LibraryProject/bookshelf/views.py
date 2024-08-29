@@ -8,7 +8,7 @@ from .models import Book
 from django.shortcuts import render
 from .forms import BookSearchForm
 from django.db import connection
-from django.shortcuts import render
+from .forms import ExampleForm, BookSearchForm
 
 
 # Create your views here.
