@@ -3,7 +3,9 @@ from django.views.generic.detail import DetailView
 from .models import Book
 from .models import Library
 from django.shortcuts import redirect
-from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+from django.contrib.auth import authenticate 
+from django.contrib.auth import logout as auth_logout
+from django.contrib.auth import login as auth_login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
