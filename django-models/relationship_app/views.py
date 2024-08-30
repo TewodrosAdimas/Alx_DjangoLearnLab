@@ -1,14 +1,14 @@
 from django.shortcuts import render
-from .models import Book
+from django.views.generic import DetailView
+from .models import Book, Library
 
-from django.urls import path
-from .views import list_books, LibraryDetailView
-
+# Function-based view to list all books
 def list_books(request):
     books = Book.objects.all()
     return render(request, 'list_books.html', {'books': books})
 
-urlpatterns = [
-    path('books/', list_books, name='list_books'),
-    path('library/<int:pk>/', LibraryDetailView.as_view(), name='library_detail'),
-]
+# Class-based view to display details for a specific library
+class LibraryDetailView(DetailView):
+    model = Library
+    template_name = 'library_detail.html'
+    context_object_name = 'library'
