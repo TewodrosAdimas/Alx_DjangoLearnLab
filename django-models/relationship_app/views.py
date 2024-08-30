@@ -27,7 +27,7 @@ def login(request):
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             user = form.get_user()
-            auth_login(request, user)
+            auth_login(request, user)  # Correct import usage
             return redirect('home')  # Redirect to home or any other page after login
     else:
         form = AuthenticationForm()
@@ -46,5 +46,10 @@ def register(request):
 
 # Logout view
 def logout(request):
-    auth_logout(request)
+    auth_logout(request)  # Correct import usage
     return render(request, 'logout.html')
+
+# Home view (if you have one)
+@login_required
+def home(request):
+    return render(request, 'home.html')
