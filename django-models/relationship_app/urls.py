@@ -3,6 +3,7 @@ from .views import CustomLoginView, CustomLogoutView, CustomRegisterView
 from .import views
 from .views import list_books, LibraryDetailView
 from .views import login, register, logout
+from django.contrib.auth import login
 
 
 urlpatterns = [
