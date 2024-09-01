@@ -1,0 +1,23 @@
+<VirtualHost *:80>
+    ServerName yourdomain.com
+    Redirect permanent / https://yourdomain.com/
+</VirtualHost>
+
+<VirtualHost *:443>
+    ServerName yourdomain.com
+
+    SSLEngine on
+    SSLCertificateFile /etc/ssl/certs/yourdomain.crt
+    SSLCertificateKeyFile /etc/ssl/private/yourdomain.key
+
+    # Optional: Configure SSL/TLS settings
+    SSLProtocol all -SSLv2 -SSLv3
+    SSLCipherSuite HIGH:!aNULL:!MD5
+    SSLHonorCipherOrder on
+
+    DocumentRoot /var/www/yourapp
+    <Directory /var/www/yourapp>
+        AllowOverride All
+        Require all granted
+    </Directory>
+</VirtualHost>
