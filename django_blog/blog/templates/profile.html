@@ -1,0 +1,39 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Profile{% endblock %}
+
+
+
+
+{% block content %}
+
+{% if user.is_authenticated %} You are logged in as {{ user }}.
+<form action="{% url 'logout' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Log Out</button>
+</form>
+{% else %} You are not logged in.
+<a href="{% url 'login' %}">Click here to log in.</a>
+{% endif %}
+
+<div class="content">
+    <h2>Profile</h2>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <br>
+        <fieldset>
+            <legend>User Information</legend>
+            {{ user_form.as_p }}
+        </fieldset>
+        <br>
+        <fieldset>
+            <legend>Profile Information</legend>
+            {{ profile_form.as_p }}
+        </fieldset>
+        <br>
+        <button type="submit" class="submit-button">Save Changes</button>
+    </form>
+</div>
+{% endblock %}
