@@ -1,0 +1,11 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="content">
+    <h2>Home</h2>
+    <p>Have an account? <a href="{% url 'login' %}">Login</a></p>
+    <p>Don't have an account? <a href="{% url 'register' %}">Sign up</a></p>
+</div>
+{% endblock %}

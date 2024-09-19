@@ -30,3 +30,6 @@ def profile_view(request):
         'profile_form': profile_form
     }
     return render(request, 'registration/profile.html', context)
+
+def home(request):
+    return render(request, "registration/home.html")
