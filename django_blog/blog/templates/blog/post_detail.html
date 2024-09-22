@@ -1,51 +1,40 @@
 {% extends 'blog/base.html' %}
-
-{% block title %}{{ post.title }} - Django Blog{% endblock %}
-
 {% block content %}
-    <h1>{{ post.title }}</h1>
-    <p><strong>Author:</strong> {{ post.author.username }}</p>
-    <p><strong>Published on:</strong> {{ post.published_date }}</p>
-    
-    <div class="post-content">
-        <p>{{ post.content }}</p>
-    </div>
+    <h2>{{ post.title }}</h2>
+    <p>{{ post.content }}</p>
+    <p>By {{ post.author }} on {{ post.created_at }}</p>
 
-    <p><a href="{% url 'post_list' %}">Back to all posts</a></p>
-    <p><a href="{% url 'post_edit' post.pk %}">Edit Post</a></p>
-    <p><a href="{% url 'post_delete' post.pk %}">Delete Post</a></p>
+    <p>Tags: 
+        {% for tag in post.tags.all %}
+            <a href="{% url 'posts_by_tag' tag.name %}">{{ tag.name }}</a>
+        {% endfor %}
+    </p>
+
+    <!-- Search Bar -->
+    <form method="GET" action="{% url 'post_search' %}">
+        <input type="text" name="q" placeholder="Search...">
+        <button type="submit">Search</button>
+    </form>
+    
+    <h2>Comments</h2>
+    <ul>
+        {% for comment in comments %}
+            <li>
+                <p>{{ comment.content }} - {{ comment.author }}</p>
+                {% if comment.author == user %}
+                    <a href="{% url 'comment_edit' comment.pk %}">Edit</a>
+                    <a href="{% url 'comment_delete' comment.pk %}">Delete</a>
+                {% endif %}
+            </li>
+        {% empty %}
+            <li>No comments yet.</li>
+        {% endfor %}
+    </ul>
 
     <h2>Add a Comment</h2>
-    {% if user.is_authenticated %}
-        <form action="{% url 'comment_create' post.pk %}" method="post">
-            {% csrf_token %}
-            <input type="hidden" name="post" value="{{ post.pk }}">
-            <textarea name="content" placeholder="Your comment here..." required></textarea>
-            <button type="submit">Post Comment</button>
-        </form>
-    {% else %}
-        <p>You must be logged in to comment. <a href="{% url 'login' %}">Login</a></p>
-    {% endif %}
-
-    <div class="comments-section">
-        <h2>Comments</h2>
-        {% if comments %}
-            <ul class="comment-list">
-                {% for comment in comments %}
-                    <li class="comment">
-                        <p><strong>{{ comment.author.username }}</strong> ({{ comment.created_at|date:"F j, Y, g:i a" }}):</p>
-                        <p>{{ comment.content }}</p>
-                        <a href="{% url 'comment_update' post.pk comment.pk %}">Edit</a> |
-                        <form action="{% url 'comment_delete' post.pk comment.pk %}" method="post" style="display: inline;">
-                            {% csrf_token %}
-                            <input type="submit" value="Delete" onclick="return confirm('Are you sure you want to delete this comment?');">
-                        </form>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p>No comments yet. Be the first to comment!</p>
-        {% endif %}
-    </div>
-    
+    <form method="post" action="{% url 'comment_create' post.pk %}">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <button type="submit">Add Comment</button>
+    </form>
 {% endblock %}

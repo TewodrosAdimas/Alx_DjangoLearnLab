@@ -1,0 +1,20 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+    <h2>Profile</h2>
+
+    <!-- Display the profile picture if available -->
+    {% if user.profile.profile_picture %}
+        <img src="{{ user.profile.profile_picture.url }}" alt="{{ user.username }}" style="width: 150px; height: 150px;">
+    {% else %}
+        <p>No profile picture uploaded.</p>
+    {% endif %}
+
+    <!-- Profile update form -->
+    <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ user_form.as_p }}
+    {{ profile_form.as_p }}
+    <button type="submit" class="btn btn-primary">Update Profile</button>
+    
+{% endblock %}

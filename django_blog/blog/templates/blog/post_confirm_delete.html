@@ -1,10 +1,8 @@
 {% extends 'blog/base.html' %}
-
 {% block content %}
-    <h2>Add a Comment</h2>
+    <h2>Are you sure you want to delete "{{ post.title }}"?</h2>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Submit</button>
+        <button type="submit">Yes, delete</button>
     </form>
 {% endblock %}

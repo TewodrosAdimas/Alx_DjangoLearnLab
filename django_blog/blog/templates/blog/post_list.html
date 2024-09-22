@@ -1,20 +1,25 @@
 {% extends 'blog/base.html' %}
-{% block title %}All Posts - Django Blog{% endblock %}
-
 {% block content %}
-    <h1>All Posts</h1>
-    
-    <ul>
-        {% for post in posts %}
-            <li>
-                <h2><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h2>
-                <p>{{ post.content|truncatewords:30 }}</p>  <!-- Display a snippet of the content -->
-                <p><a href="{% url 'post_detail' post.pk %}">Read more</a></p>
-            </li>
-        {% empty %}
-            <li>No posts available.</li>
-        {% endfor %}
-    </ul>
+    <h2>All Blog Posts</h2>
 
-    <p><a href="{% url 'post_create' %}">Create New Post</a></p>
+    <!-- Search bar -->
+    <form method="GET" action="{% url 'post_search' %}">
+        <input type="text" name="q" placeholder="Search...">
+        <button type="submit">Search</button>
+    </form>
+
+    <ul>
+    {% for post in posts %}
+        <li>
+            <a href="{% url 'post-detail' post.id %}">{{ post.title }}</a>
+            <p>{{ post.snippet }} - {{ post.author }}</p>
+            <!-- Display tags -->
+            <p>Tags: 
+                {% for tag in post.tags.all %}
+                    <a href="{% url 'posts_by_tag' tag.name %}">{{ tag.name }}</a>
+                {% endfor %}
+            </p>
+        </li>
+    {% endfor %}
+    </ul>
 {% endblock %}

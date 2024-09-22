@@ -1,0 +1,24 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <div class="home-page">
+        <h1>Welcome to Django Blog</h1>
+        <p>This is your go-to platform for amazing blog posts!</p>
+
+        <h2>Recent Posts</h2>
+        <ul>
+        {% for post in latest_posts %}
+            <li>
+                <a href="{% url 'post-detail' post.id %}">{{ post.title }}</a>
+                <p>{{ post.snippet }}</p>
+            </li>
+        {% endfor %}
+        </ul>
+
+        {% if latest_posts %}
+            <a href="{% url 'post-list' %}">View all posts</a>
+        {% else %}
+            <p>No posts available yet.</p>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Django Blog{% endblock %}</title>
+    
+    <!-- Load static files -->
+    {% load static %}
+
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
@@ -12,8 +15,19 @@
         <nav>
             <ul>
                 <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="{% url 'login' %}">Login</a></li>
-                <li><a href="{% url 'register' %}">Register</a></li>
+                {% comment %} <li><a href="{% url 'posts' %}">Blog Posts</a></li> {% endcomment %}
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'profile' %}">Profile</a></li>
+                    <li>
+                        <form action="{% url 'logout' %}" method="POST" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" style="background:none;border:none;padding:0;cursor:pointer;">Logout</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'register' %}">Register</a></li>
+                {% endif %}
             </ul>
         </nav>
     </header>
@@ -23,11 +37,7 @@
         <!-- Page-specific content goes here -->
         {% endblock %}
     </div>
-    <form method="GET" action="{% url 'post_search' %}" style="margin: 20px 0;">
-        <input type="text" name="q" placeholder="Search..." />
-        <button type="submit">Search</button>
-    </form>
-    
+
     <footer>
         <p>&copy; 2024 Django Blog</p>
     </footer>
@@ -35,3 +45,11 @@
     <script src="{% static 'js/scripts.js' %}"></script>
 </body>
 </html>
+
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
