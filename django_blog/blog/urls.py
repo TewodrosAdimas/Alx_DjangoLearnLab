@@ -1,12 +1,13 @@
 from django.urls import path, include
 from django.views.generic import TemplateView
 from .views import SignUpView, home
-from django.contrib.auth.views import LoginView
-from django.contrib.auth.views import LogoutView
+from django.contrib.auth.views import LoginView, LogoutView
 from .views import profile_view
 from django.contrib.auth.views import PasswordChangeView
 from django.conf import settings
 from django.conf.urls.static import static
+from .views import PostListView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView
+
 
 
 
@@ -22,5 +23,11 @@ urlpatterns = [
     path('accounts/profile/',
              TemplateView.as_view(template_name='accounts/profile.html'),
              name='profile'),
+    path('posts/', PostListView.as_view(), name='post_list'),                 # List all posts
+    path('posts/new/', PostCreateView.as_view(), name='post_create'),         # Create a new post
+    path('posts/<int:pk>/', PostDetailView.as_view(), name='post_detail'),    # View a specific post
+    path('posts/<int:pk>/edit/', PostUpdateView.as_view(), name='post_edit'), # Edit a specific post
+    path('posts/<int:pk>/delete/', PostDeleteView.as_view(), name='post_delete'),
+
     
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

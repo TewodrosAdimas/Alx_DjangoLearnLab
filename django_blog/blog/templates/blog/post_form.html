@@ -1,0 +1,16 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}{% if post %}Edit Post{% else %}Create New Post{% endif %} - Django Blog{% endblock %}
+
+{% block content %}
+    <h1>{% if post %}Edit Post{% else %}Create New Post{% endif %}</h1>
+    
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Renders the form fields as paragraphs -->
+
+        <button type="submit">{% if post %}Update Post{% else %}Create Post{% endif %}</button>
+    </form>
+
+    <p><a href="{% url 'post_list' %}">Back to all posts</a></p>
+{% endblock %}
