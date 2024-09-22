@@ -23,11 +23,11 @@ urlpatterns = [
     path('accounts/profile/',
              TemplateView.as_view(template_name='accounts/profile.html'),
              name='profile'),
-    path('posts/', PostListView.as_view(), name='post_list'),                 # List all posts
-    path('posts/new/', PostCreateView.as_view(), name='post_create'),         # Create a new post
-    path('posts/<int:pk>/', PostDetailView.as_view(), name='post_detail'),    # View a specific post
-    path('posts/<int:pk>/edit/', PostUpdateView.as_view(), name='post_edit'), # Edit a specific post
-    path('posts/<int:pk>/delete/', PostDeleteView.as_view(), name='post_delete'),
+    path('post/', PostListView.as_view(), name='post_list'),                 # List all posts
+    path('post/new/', PostCreateView.as_view(), name='post_create'),         # Create a new post
+    path('post/<int:pk>/', PostDetailView.as_view(), name='post_detail'),    # View a specific post
+    path('post/<int:pk>/edit/', PostUpdateView.as_view(), name='post_edit'), # Edit a specific post
+    path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post_delete'),
 
     
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
