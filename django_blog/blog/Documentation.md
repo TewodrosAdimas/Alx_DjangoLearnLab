@@ -42,3 +42,8 @@
              -UserPassesTestMixin, to check if the editor is the author of the post
 
 
+#Adding Comment Functionality to Blog Posts
+
+-Comment model created to store comments
+-CommentForm created to facilitate comment creation and update 
+-CRUD operations performed for comments, the same way for posts did

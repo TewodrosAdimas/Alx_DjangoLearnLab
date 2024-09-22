@@ -6,7 +6,7 @@ from .views import profile_view
 from django.contrib.auth.views import PasswordChangeView
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import PostListView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView, CommentCreateView, CommentDeleteView, CommentUpdateView
+from .views import PostListView, PostDetailView, PostCreateView, post_search, PostUpdateView, PostDeleteView, CommentCreateView, CommentDeleteView, CommentUpdateView
 
 
 
@@ -32,6 +32,7 @@ urlpatterns = [
     path('post/<int:post_id>/comments/new/', CommentCreateView.as_view(), name='comment_create'),
     path('post/<int:post_id>/comment/<int:pk>/update/', CommentUpdateView.as_view(), name='comment_update'),
     path('post/<int:post_id>/comment/<int:pk>/delete/', CommentDeleteView.as_view(), name='comment_delete'),
+    path('search/', post_search, name='post_search'),
 
     
 ]  +static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

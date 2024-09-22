@@ -32,11 +32,10 @@ class UserProfileForm(forms.ModelForm):
         fields = ['profile_picture', 'bio']
 
 
-
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'content']  # Include only the fields to be filled by the user
+        fields = ['title', 'content', 'tags']  # Include tags field
 
     def clean_title(self):
         title = self.cleaned_data.get('title')
@@ -49,6 +48,12 @@ class PostForm(forms.ModelForm):
         if len(content) < 10:
             raise forms.ValidationError('The content must be at least 10 characters long.')
         return content
+
+    def clean_tags(self):
+        tags = self.cleaned_data.get('tags')
+        # Optionally validate tags if needed (e.g., check for duplicates)
+        return tags
+
 
 
 

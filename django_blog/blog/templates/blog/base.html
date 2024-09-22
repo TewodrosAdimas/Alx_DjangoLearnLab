@@ -23,7 +23,11 @@
         <!-- Page-specific content goes here -->
         {% endblock %}
     </div>
-
+    <form method="GET" action="{% url 'post_search' %}" style="margin: 20px 0;">
+        <input type="text" name="q" placeholder="Search..." />
+        <button type="submit">Search</button>
+    </form>
+    
     <footer>
         <p>&copy; 2024 Django Blog</p>
     </footer>
