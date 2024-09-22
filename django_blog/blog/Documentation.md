@@ -22,3 +22,23 @@
 - For authenticated users: - Allowed to change their information.
                            - CustomUserChangeForm created by inheriting built in class UserChangeForm.
                            - login_required created and used in views.
+
+
+#Creating Blog Post Management Features
+
+-ListView : -Used to display all views, overwrite model, context_object_name and template name
+            -The context_object_name creates objects of all elements in Post model and pass it to template
+            
+-DetailView: -Used to display the detail of each post overwrite model, context_object_name and template name
+             -The html will provide post.content (content of that blog)
+
+-CreateView: -Used to to create blog
+             -Uses LoginRequiredMixin snce it requires authentication
+             -Overwrites form_class, by defining the fields to be given for creating new post
+             -Set the author of the post to the current logged-in user
+
+-UpdateView and DeleteView: -Used to update/edit their blog for users.
+             -LoginRequiredMixin, to authenticate user
+             -UserPassesTestMixin, to check if the editor is the author of the post
+
+

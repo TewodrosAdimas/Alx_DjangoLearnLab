@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.models import User
 from .models import UserProfile
+from .models import Comment
 from .models import Post
 
 
@@ -47,4 +48,26 @@ class PostForm(forms.ModelForm):
         content = self.cleaned_data.get('content')
         if len(content) < 10:
             raise forms.ValidationError('The content must be at least 10 characters long.')
+        return content
+
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']  # Include only the content field for the comment
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # You can customize widget attributes if needed
+        self.fields['content'].widget.attrs.update({
+            'placeholder': 'Add your comment here...',
+            'rows': 4,
+            'class': 'comment-textarea',  
+        })
+
+    def clean_content(self):
+        content = self.cleaned_data.get('content')
+        if not content:
+            raise forms.ValidationError("This field cannot be empty.")
         return content
